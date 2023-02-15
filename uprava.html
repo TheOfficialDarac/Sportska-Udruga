@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/plugins/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/vsmti_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <title>udruga vodstvo</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div>
+                <a href="index.html" title="Home">
+                    <img src="img/logo.png" alt="">
+                </a>
+                <a href="index.html">Home</a>
+                <a href="changeMembers.html">Administracija</a>
+                <a href="uprava.html">Uprava</a>
+            </div>
+            <div id="centre">
+                <a href="index.html">Sportska Udruga VUV</a>
+            </div>
+            <div>
+                <button onclick="LogOut()" title="Log out">Log Out</button>
+            </div>
+        </nav>
+    </header>
+    <main id="upravaMain">
+        <!-- tablica izvrsnog odbora pocetak -->
+        <div id="toggleBar">
+            <button type="button" class="button" onclick="IWannaSee('izvrsniOdbor')">izvršni odbor</button>
+            <button type="button" class="button" onclick="IWannaSee('nadzorniOdbor')">nadzorni odbor</button>
+            <button type="button" class="button" onclick="IWannaSee('p')">predsjednik</button>
+            <button type="button" class="button" onclick="IWannaSee('vp')">podpredsjednik</button>
+            <button type="button" class="button" onclick="IWannaSee('t')">tajnik</button>
+            <button type="button" class="button" onclick="IWannaSee('l')">likvidator</button>
+            <button type="button" class="button" onclick="IWannaSee('toggleable')">SVE</button>
+            <button type="button" class="button" onclick="HistoryOptionsModal()">povijest</button>
+        </div>
+        <div class="tableContainer toggleable" id="izvrsniOdbor">
+            <table class="table">
+                <h3>Izvršni Odbor</h3>
+                <thead>
+                    <tr>
+                        <th scope="col">Titula</th>
+                        <th scope="col">Ime</th>
+                        <th scope="col">Prezime</th>
+                        <th scope="col">Sportovi od interesa</th>
+                        <th scope="col">Izmijeni</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider" id="tablicaUprava">
+                </tbody>
+            </table>
+        </div>
+        <!-- tablica izvrsnog odbora kraj -->
+        <br>
+        <!-- tablica nadzornog odbora pocetak -->
+        <div class="tableContainer toggleable" id="nadzorniOdbor">
+            <table class="table">
+                <h3>Nadzorni Odbor</h3>
+                <thead>
+                    <tr>
+                        <th scope="col">Titula</th>
+                        <th scope="col">Ime</th>
+                        <th scope="col">Prezime</th>
+                        <th scope="col">Sportovi od interesa</th>
+                        <th scope="col">Izmijeni</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider" id="tablicaNadzorniOdbor">
+                </tbody>
+            </table>
+        </div>
+        <!-- tablica nadzornog odbora kraj -->
+        <br>
+        <!-- tablica za predsjednika pocetak -->
+        <div class="prominentFigureContainer">
+            <div class="importantPersonContainer toggleable" id="p">
+                <div>
+                    <img src="https://picsum.photos/120" alt="the president of out association">
+                </div>
+                <div>
+                    <ul id="presidentList">
+                    </ul>
+                </div>
+            </div>
+            <div class="importantPersonContainer toggleable" id="vp">
+                <div>
+                    <img src="https://picsum.photos/121" alt="vice president of the gang">
+                </div>
+                <div>
+                    <ul id="vicePresidentList"></ul>
+                </div>
+            </div>
+            <div class="importantPersonContainer toggleable" id="t">
+                <div>
+                    <img src="https://picsum.photos/119" alt="vice president of the gang">
+                </div>
+                <div>
+                    <ul id="tajnikList"></ul>
+                </div>
+            </div>
+            <div class="importantPersonContainer toggleable" id="l">
+                <div>
+                    <img src="https://picsum.photos/118" alt="vice president of the gang">
+                </div>
+                <div>
+                    <ul id="likvidatorList"></ul>
+                </div>
+            </div>
+        </div>
+        <!-- tablica za predsjednika kraj -->
+        <br>
+        <!-- edit modal pocetak -->
+        <div id="upravaEditModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ukloni iz odbora</h5>
+                        <button type="button" class="modal-X-button" onclick="$('#upravaEditModal').modal('hide')"
+                            aria-label="Close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="upravaEditModalBody"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="$('#upravaEditModal').modal('hide')">Zatvori</button>
+                        <button type="button" class="button" id="saveCouncilChange" class="button">Izbaci</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- edit modal kraj -->
+
+        <!-- dodaj u upravu modal pocetak -->
+        <div id="upravaAddModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Give Power</h5>
+                        <button type="button" class="modal-X-button" onclick="$('#upravaAddModal').modal('hide')"
+                            aria-label="Close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                                <th scope="col">ime</th>
+                                <th scope="col">Prezime</th>
+                                <th scope="col">Odaberi</th>
+                            </thead>
+                            <tbody class="table-group-divider" id="upravaAddModalBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="$('#upravaAddModal').modal('hide')">Zatvori</button>
+                        <!-- <button type="button" class="button btn" id="saveCouncilChange" class="btn btn-primary">Izbaci clana iz uprave</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- dodaj u upravu modal kraj -->
+        <div id="historyModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Povijest</h5>
+                        <button type="button" class="modal-X-button" onclick="$('#historyModal').modal('hide')"
+                            aria-label="Close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseOne">
+                                        Izvršni odbor
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
+                                    aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body" id="acc1">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ime i prezime</th>
+                                                    <th>Početak - Kraj Mandata</th></thead>
+                                                </tr>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseTwo">
+                                        Nadzorni odbor
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                    aria-labelledby="panelsStayOpen-headingTwo">
+                                    <div class="accordion-body" id="acc2">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ime i prezime</th>
+                                                    <th>Početak - Kraj Mandata</th></thead>
+                                                </tr>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseThree">
+                                        Predsjednik
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="panelsStayOpen-headingThree">
+                                    <div class="accordion-body" id="acc3">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ime i prezime</th>
+                                                    <th>Početak - Kraj Mandata</th></thead>
+                                                </tr>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseFour">
+                                        Podpredsjednik
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
+                                    aria-labelledby="panelsStayOpen-headingFour">
+                                    <div class="accordion-body" id="acc4">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ime i prezime</th>
+                                                    <th>Početak - Kraj Mandata</th></thead>
+                                                </tr>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseFive">
+                                        Tajnik
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
+                                    aria-labelledby="panelsStayOpen-headingFive">
+                                    <div class="accordion-body" id="acc5">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ime i prezime</th>
+                                                    <th>Početak - Kraj Mandata</th></thead>
+                                                </tr>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseSix">
+                                        Likvidator
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse"
+                                    aria-labelledby="panelsStayOpen-headingSix">
+                                    <div class="accordion-body" id="acc6">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ime i prezime</th>
+                                                    <th>Početak - Kraj Mandata</th></thead>
+                                                </tr>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="$('#historyModal').modal('hide')">Zatvori</button>
+                        <!-- <button type="button" class="button btn" id="saveCouncilChange" class="btn btn-primary">Izbaci clana iz uprave</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>
+                <a href="https://www.instagram.com/vuv.hr/?hl=hr">
+                    <img src="img/insta_logo.png" title="Give our Instagram page a follow!">
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/vuv.hr/?hl=hr">
+                    <img src="img/github.png" title="Check out our GitHub page!">
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <script src="assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/firebase_config.js"></script>
+    <script src="js/uprava.js"></script>
+    <script src="js/redirekcija.js"></script>
+    <script src="js/auth.js"></script>
+    <style>
+        body{background-color: #363230;}
+        a{
+            text-decoration: none;
+        }
+    </style>
+</body>
+
+</html>

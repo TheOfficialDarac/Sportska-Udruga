@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- <link rel="stylesheet" href="assets/plugins/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome-free-5.15.4-web/css/all.min.css"> -->
+    <link rel="icon" href="img/vsmti_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    .theimg{
+        max-height: 400px;
+        min-height: 400px;
+        object-fit: cover;
+        overflow: hidden;
+    }
+</style>
+</head>
+
+<body id="mainBody">
+    <header>
+        <nav>
+            <div>
+                <a href="index.html" title="Home">
+                    <img src="img/logo.png" alt="">
+                </a>
+                <a href="index.html">Home</a>
+                <a href="changeMembers.html">Administracija</a>
+                <a href="uprava.html">Uprava</a>
+            </div>
+            <div id="centre">
+                <a href="index.html">Sportska Udruga VUV</a>
+            </div>
+            <div>
+                <button onclick="LogOut()" title="Log out">Log Out</button>
+            </div>
+        </nav>
+    </header>
+    <main id="mainMain">
+        <article id="mainArticle">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/jordan_dunk.jpg" width="400px"class="d-block w-100 theimg" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/lebron_scoring_champ.jpg" class="d-block w-100 theimg" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/messi_ronaldo.jpg" class="d-block w-100 theimg" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </article>
+        <aside id="mainAside">
+            <div class="container">
+                <button type="button" class="button" onclick="AddNewsModal()">Dodaj vijest</button>
+            </div>
+            <div class="container">
+                <table class="table">
+                    <!-- <thead><th></th></thead> -->
+                    <tbody></tbody>
+                </table>
+            </div>
+        </aside>
+    </main>
+    <!-- modal za vijesti pocetak -->
+    <div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addNewsModalLabel">Dodaj vijest</h1>
+                    <button type="button" class="modal-X-button" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="addNewsForm">
+                        <div id="titleNamingContainer">
+                            <label for="newsTitle">Naslov:</label>
+                            <input type="text" name="newsTitle" id="inputTitle">
+                        </div>
+                        <div>
+                            <label for="newsText">Text Objave:</label>
+                            <textarea name="newsText" id="newsText" cols="30" rows="10"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="buttonClose" data-bs-dismiss="modal">Zatvori</button>
+                    <button type="button" class="buttonConfirm" onclick="SaveNews('')">Objavi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="readNewsModal" tabindex="-1" aria-labelledby="readNewsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="readNewsModalLabel">Vijest</h1>
+                    <button type="button" class="modal-X-button" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <p id="textNEWS"></p>
+                    </div>
+                    <!-- </form> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="buttonClose" data-bs-dismiss="modal">Zatvori</button>
+                    <button type="button" class="buttonConfirm" id="editBTN">Uredi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Uređivanje Vijesti</h1>
+                    <button type="button" class="modal-X-button" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="editNewsForm">
+                        <div id="titleNamingContainer">
+                            <label for="newsTitle">Naslov:</label>
+                            <input type="text" name="newsTitle" id="inputEditTitle">
+                        </div>
+                        <div>
+                            <label for="newsText">Tekst Objave:</label>
+                            <textarea name="newsText" id="newsEditText" cols="30" rows="10"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="buttonClose" data-bs-dismiss="modal">Zatvori</button>
+                    <button type="button" class="buttonConfirm" id="saveEditBTN">Spremi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <ul>
+            <li>
+                <a href="">
+                    <img src="img/insta_logo.png" title="Give our Instagram page a follow!">
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="img/github.png" title="Check out our GitHub page!">
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <script src="assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+    <!-- <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/firebase_config.js"></script>
+    <!-- <script src="js/administracija.js"></script> -->
+    <script src="js/redirekcija.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-color: #363230;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #titleNamingContainer {
+            display: flex;
+        }
+
+        #titleNamingContainer label {
+            width: 20%;
+        }
+
+        #titleNamingContainer input {
+            width: 70%;
+        }
+    </style>
+</body>
+
+</html>

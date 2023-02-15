@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="assets/plugins/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free-5.15.4-web/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel = "icon" href ="img/vsmti_logo.png" type="image/x-icon">
+  <title>TRY-6</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div>
+          <a href="index.html" title="Home">
+              <img src="img/logo.png" alt="">
+          </a>
+          <a href="index.html">Home</a>
+          <a href="changeMembers.html">Administracija</a>
+          <a href="uprava.html">Uprava</a>
+      </div>
+      <div id="centre">
+          <a href="index.html">Sportska Udruga VUV</a>
+      </div>
+      <div>
+          <button onclick="LogOut()" title="Log out">Log Out</button>
+      </div>
+    </nav>
+  </header>
+  <main id="chMemMain">
+    <button class="button" type="button" onclick="AddSportModal()"> Uredite sportove </button>
+    <button id="addMemberBtn" type="button" class="button" onclick="AddMemberModal()">dodaj clanove</button>
+
+    <!-- tablica za ispis svih clanova udruge POCETAK -->
+    <div class="tableContainer">
+      <table class="table" id="clanoviIspis">
+        <h3>Članovi udruge</h3>
+        <div class="SrchContainer">
+          <input type="text" id="search" placeholder="search here"/>
+        </div>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Prezime</th>
+            <th scope="col">Sportovi</th>
+            <th scope="col">EDIT</th>
+            <th scope="col">DELETE</th>
+            <th scope="col">Uplati</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        </tbody>
+      </table>
+    </div>
+    <!-- tablica za ispis svih clanova udruge KRAJ -->
+
+    <!-- modali POCETAK -->
+    <!-- modal za dodavanje clanova udruge POCETAK -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Dodavanje clanova</h1>
+            <button type="button" class="modal-X-button" data-dismiss="modal" aria-label="Close">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="formContainer">
+                <label for="addMemberName">Ime:
+                  <input type="text" name="addMemberName" id="addMemberName" placeholder="ime novog clana" class="addFReq">
+                </label>
+
+              </div>
+              <div class="formContainer">
+
+              <label for="addMemberLastName">Prezime:
+                <input type="text" name="addMemberLastName" id="addMemberLastName" placeholder="prezime novog clana"
+                  class="addFReq">
+              </label>
+              </div>
+              <div class="formContainer">
+              <label for="addMemberOIB">OIB:
+                <input type="text" name="addMemberOIB" id="addMemberOIB" placeholder="012345678910" class="addFReq">
+              </label>
+              </div>
+            </form>
+            <form id="addMemberFormCheckbox"></form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="buttonClose" onclick="$('#addModal').modal('hide')">Zatvori</button>
+            <button type="button" class="button" onclick="AddMember()">Pohrani promjene</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal za dodavanje clanova udruge KRAJ -->
+
+    <!-- modal za uredivanje clanova udruge POCETAK -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 btnConfirm" id="staticBackdropLabel">Uredi clana</h1>
+            <button type="button" class="modal-X-button" data-dismiss="modal" aria-label="Close">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="editMemberForm">
+              <div class="formContainer">
+                <label for="editMemberName">Ime: 
+                  <input type="text" name="editMemberName" id="editMemberName">
+                </label>
+              </div>
+              <div class="formContainer">
+                <label for="editMemberLastName">Prezime: 
+                  <input type="text" name="editMemberLastName" id="editMemberLastName">
+                </label>
+              </div>
+            </form>
+            <form id="sportovi"></form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="buttonClose" onclick="$('#editModal').modal('hide')">Zatvori</button>
+            <button type="button" class="buttonConfirm" id="editPohrani">Pohrani promjene</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal za uredivanje clanova udruge KRAJ -->
+
+    <!-- modal za dodavanje sportova u udruzi POCETAK -->
+    <div class="modal fade" id="addSportModal" tabindex="-1" aria-labelledby="addSportModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addSportModalLabel">Sportovi</h1>
+            <button type="button" class="modal-X-button" onclick="$('#addSportModal').modal('hide')">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addSportForm"></form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="buttonClose" data-bs-dismiss="modal" onclick="$('#addSportModal').modal('hide')">Zatvori</button>
+            <button type="button" id="sportButton" class="buttonConfirm">Pohrani</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal za dodavanje sportova u udruzi KRAJ -->
+
+    <!-- modal za upozorenja POCETAK -->
+    <div class="modal" tabindex="-1" id="warningModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Upozorenje</h5>
+            <button type="button" class="modal-X-button" data-dismiss="modal" aria-label="Close" onclick="$('#warningModal').modal('hide')">
+            &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="warningModalText"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="buttonClose" onclick="$('#warningModal').modal('hide')">U redu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal za upozorenja POCETAK -->
+    
+    <!-- modal za uplate clanarine POCETAK -->
+    <div class="modal" tabindex="-1" id="clanarinaModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Članstvo</h5>
+            <button type="button" class="modal-X-button" data-dismiss="modal" aria-label="Close" onclick="$('#clanarinaModal').modal('hide')">
+            &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="clanarinaModalText"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="buttonClose" onclick="$('#clanarinaModal').modal('hide')">Zatvori</button>
+            <button type="button" class="buttonConfirm" id="UpdateMembership">Plati clanstvo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal za uplate clanarine KRAJ -->
+    <!-- modali KRAJ -->
+
+  </main>
+  <footer>
+    <ul>
+      <li>
+        <a href="">
+          <img src="img/insta_logo.png" title="Give our Instagram page a follow!">
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <img src="img/github.png" title="Check out our GitHub page!">
+        </a>
+      </li>
+    </ul>
+  </footer>
+  <script src="assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+  <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="js/firebase_config.js"></script>
+  <script src="js/changeMembers.js"></script>
+  <script src="js/redirekcija.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/plugins/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/vsmti_logo.png" type="image/x-icon">
+    <title>OWP - Firebase Login</title>
+</head>
+
+<body>
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="#">
+                            <h3 id="override" class="text-center">Login</h3>
+                            <div class="form-group">
+                                <label for="email" class="info-text">Username or Email:</label><br>
+                                <input type="text" name="email" id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="info-text">Password:</label><br>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group" id="btns-login">
+                                <button type="button" onclick="Login()">Prijavi se</button>
+                                <button type="button" onclick="OpenSignUpModal()" title="Sign up" class="btn" data-bs-toggle="modal" data-bs-target="#SignUpModal">Sign Up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal za registraciju clanova udruge POCETAK -->
+    <div class="modal fade" id="SignUpModal" tabindex="-1" aria-labelledby="SignUpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="SignUpModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="$('#SignUpModal').modal('hide')"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="signUpEmail">Email: </label>
+                        <input type="email" name="signUpEmail" id="signUpEmail">
+                        <label for="signUpPassword">Lozinka: </label>
+                        <input type="password" name="signUpPassword" id="signUpPassword">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btnConfirm" data-bs-dismiss="modal"
+                        onclick="$('#SignUpModal').modal('hide')">Close</button>
+                    <button type="button" class="btn btnConfirm" onclick="SignUp()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal za registraciju clanova udruge KRAJ -->
+    <script src="assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="js/firebase_config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>
