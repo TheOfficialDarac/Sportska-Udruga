@@ -40,3 +40,4 @@ const loginForm = document.querySelector('#login-form');
 loginForm.reset();
 const baseLogin = document.querySelector('#baseLoginForm');
 baseLogin.reset();
+auth.signOut();
